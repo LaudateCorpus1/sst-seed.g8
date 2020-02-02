@@ -3,9 +3,9 @@ import java.util.concurrent.TimeUnit
 import cats.effect.{Clock, Resource}
 import com.avast.sst.bundle.ZioServerApp
 import com.avast.sst.doobie.DoobieHikariModule
-import com.avast.sst.example.config.Configuration
-import com.avast.sst.example.module.Http4sRoutingModule
-import com.avast.sst.example.service.RandomService
+import $package$.config.Configuration
+import $package$.module.Http4sRoutingModule
+import $package$.service.RandomService
 import com.avast.sst.http4s.client.Http4sBlazeClientModule
 import com.avast.sst.http4s.client.monix.catnap.Http4sClientCircuitBreakerModule
 import com.avast.sst.http4s.server.Http4sBlazeServerModule

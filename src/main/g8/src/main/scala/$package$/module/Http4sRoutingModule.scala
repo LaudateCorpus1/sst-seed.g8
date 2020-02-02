@@ -1,6 +1,6 @@
 package $package$.module
 
-import com.avast.sst.example.service.RandomService
+import $package$.service.RandomService
 import com.avast.sst.http4s.server.Http4sRouting
 import com.avast.sst.http4s.server.micrometer.MicrometerHttp4sServerMetricsModule
 import org.http4s.client.Client

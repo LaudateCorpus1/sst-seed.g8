@@ -1,8 +1,8 @@
 package $package$.tests
 
 import com.avast.sst.doobie.DoobieHikariModule
-import com.avast.sst.example.config.Configuration
-import com.avast.sst.example.service.RandomService
+import $package$.config.Configuration
+import $package$.service.RandomService
 import com.avast.sst.jvm.execution.ConfigurableThreadFactory.Config
 import com.avast.sst.jvm.execution.{ConfigurableThreadFactory, ExecutorModule}
 import com.avast.sst.pureconfig.PureConfigModule
