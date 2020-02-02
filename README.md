@@ -1,9 +1,15 @@
-A [Giter8][g8] template for ...!
+A [Giter8][g8] template for Avast Scala Server Toolkit!
 
-Template license
+use it by 
+
+```
+sbt new strobe/sst-seed.g8
+```
+
+License
 ----------------
-Written in <YEAR> by <AUTHOR NAME> <AUTHOR E-MAIL ADDRESS>
-[other author/contributor lines as appropriate]
+Written in 2020 by [Evgeniy Tokarev](https://github.com/strobe)
+(based on original sources of [Scala Server Toolkit](https://github.com/avast/scala-server-toolkit))
 
 To the extent possible under law, the author(s) have dedicated all copyright and related
 and neighboring rights to this template to the public domain worldwide.
