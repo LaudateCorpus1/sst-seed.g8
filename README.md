@@ -4,7 +4,7 @@
 use it by 
 
 ```
-sbt new strobe/sst-seed.g8
+sbt new avast/sst-seed.g8
 ```
 
 License
