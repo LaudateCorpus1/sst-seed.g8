@@ -1,4 +1,5 @@
-A [Giter8][g8] template for Avast Scala Server Toolkit!
+# sst-seed
+[Giter8][g8] template for Scala Server Toolkit.
 
 use it by 
 
