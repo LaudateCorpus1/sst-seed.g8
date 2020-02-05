@@ -7,7 +7,7 @@ lazy val commonSettings = BuildSettings.common ++ Seq(
     Dependencies.scalaTest % Test,
     Dependencies.testContainers % Test,
     Dependencies.testContainersPostgres % Test
-  )
+  ),
   Test / publishArtifact := false
 )
 

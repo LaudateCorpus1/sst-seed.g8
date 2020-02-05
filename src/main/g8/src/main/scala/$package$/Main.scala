@@ -1,3 +1,5 @@
+package $package$
+
 import java.util.concurrent.TimeUnit
 
 import cats.effect.{Clock, Resource}

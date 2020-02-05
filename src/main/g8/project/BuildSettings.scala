@@ -1,3 +1,8 @@
+import sbt.Keys._
+import sbt._
+import scalafix.sbt.ScalafixPlugin.autoImport._
+import wartremover.WartRemover.autoImport._
+
 object BuildSettings {
 
   lazy val common = Seq(

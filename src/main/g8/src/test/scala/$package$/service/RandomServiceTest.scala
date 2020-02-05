@@ -1,6 +1,18 @@
-package $package$.tests
+package $package$.service
 
+import cats.effect.Resource
+import com.avast.sst.doobie._
+import $package$.config.Configuration
+import com.avast.sst.jvm.execution.ConfigurableThreadFactory.Config
+import com.avast.sst.jvm.execution.{ConfigurableThreadFactory, ExecutorModule}
+import com.avast.sst.pureconfig.PureConfigModule
 import scala.concurrent.ExecutionContext
+import zio._
+import zio.interop.catz._
+
+import org.scalatest._
+import org.scalatest.funsuite.AsyncFunSuite
+import com.dimafeng.testcontainers._
 
 class RandomServiceTest extends AsyncFunSuite with ForAllTestContainer {
 
@@ -24,7 +36,7 @@ class RandomServiceTest extends AsyncFunSuite with ForAllTestContainer {
       randomService = RandomService(doobieTransactor)
     } yield randomService
 
-    val task: Task[Double] = test
+    val task = test
       .use { randomService =>
         randomService.randomNumber.map(n => assert(n >= 0.0 && n <= 1.0))
       }
