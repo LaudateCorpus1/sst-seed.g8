@@ -1,8 +1,3 @@
-import sbt.Keys._
-import sbt._
-import scalafix.sbt.ScalafixPlugin.autoImport._
-import wartremover.WartRemover.autoImport._
-
 object BuildSettings {
 
   lazy val common = Seq(
@@ -10,11 +5,11 @@ object BuildSettings {
     libraryDependencies ++= Seq(
       compilerPlugin(Dependencies.kindProjector),
       compilerPlugin(Dependencies.silencer),
-      compilerPlugin(scalafixSemanticdb), // for scalafix
+      compilerPlugin(scalafixSemanticdb), // for Scalafix
       Dependencies.silencerLib
     ),
     Compile / compile / wartremoverErrors ++= Warts.all filterNot Set(
-      Wart.Null, // checked by scalafix
+      Wart.Null, // checked by Scalafix
       Wart.Nothing, // keep, false positives all around
       Wart.Overloading,
       Wart.Any, // keep, false positives all around
@@ -29,8 +24,8 @@ object BuildSettings {
       Dependencies.sortImports
     ),
     scalacOptions ++= Seq(
-      "-Yrangepos", // for scalafix. required by SemanticDB compiler plugin
-      "-Ywarn-unused", // for scalafix. not present in sbt-tpolecat for 2.13
+      "-Yrangepos", // for Scalafix. required by SemanticDB compiler plugin
+      "-Ywarn-unused", // for Scalafix. not present in sbt-tpolecat for 2.13
       "-P:silencer:checkUnused"
     ),
     Test / publishArtifact := false,

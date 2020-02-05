@@ -21,8 +21,6 @@ import com.avast.sst.monix.catnap.micrometer.MicrometerCircuitBreakerMetricsModu
 import com.avast.sst.pureconfig.PureConfigModule
 import com.zaxxer.hikari.metrics.micrometer.MicrometerMetricsTrackerFactory
 import org.http4s.server.Server
-import slog4s.slf4j._
-import slog4s.{Logger, LoggerFactory}
 import zio.Task
 import zio.interop.catz._
 import zio.interop.catz.implicits._
@@ -31,12 +29,8 @@ import scala.concurrent.ExecutionContext
 
 object Main extends ZioServerApp {
 
-  val loggerFactory: LoggerFactory[Task] = Slf4jFactory[Task].noContext.make
-  val logger: Logger[Task] = loggerFactory.make("test-logger")
-
   def program: Resource[Task, Server[Task]] = {
     for {
-      _ <- Resource.liftF(logger.debug("-- started --"))
       configuration <- Resource.liftF(PureConfigModule.makeOrRaise[Task, Configuration])
       executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.platform.executor.asEC)
       clock = Clock.create[Task]
