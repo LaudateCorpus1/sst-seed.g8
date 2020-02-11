@@ -1,45 +1,27 @@
 import sbt.Keys._
 import sbt._
 import scalafix.sbt.ScalafixPlugin.autoImport._
-import wartremover.WartRemover.autoImport._
 
 object BuildSettings {
 
-  lazy val common = Seq(
-    ThisBuild / scalaVersion := "$scalaVersion$",
+  lazy val common: Seq[Def.Setting[_]] = Seq(
+    scalaVersion := "$scalaVersion$",
     libraryDependencies ++= Seq(
       compilerPlugin(Dependencies.kindProjector),
       compilerPlugin(Dependencies.silencer),
-      compilerPlugin(scalafixSemanticdb), // for Scalafix
+      compilerPlugin(scalafixSemanticdb), // necessary for Scalafix
       Dependencies.silencerLib
     ),
-    Compile / compile / wartremoverErrors ++= Warts.all filterNot Set(
-      Wart.Null, // checked by Scalafix
-      Wart.Nothing, // keep, false positives all around
-      Wart.Overloading,
-      Wart.Any, // keep, false positives all around
-      Wart.Equals, // keep, easier that way
-      Wart.ToString, // keep, easier that way
-      Wart.Product, // keep, false positives all around
-      Wart.Serializable, // keep, false positives all around
-      Wart.DefaultArguments // for constructors for PureConfig
-    ),
     ThisBuild / scalafixDependencies ++= Seq(
-      Dependencies.scalazzi,
-      Dependencies.sortImports
+      Dependencies.scalafixScaluzzi,
+      Dependencies.scalafixSortImports
     ),
     scalacOptions ++= Seq(
-      "-Yrangepos", // for Scalafix. required by SemanticDB compiler plugin
-      "-Ywarn-unused", // for Scalafix. not present in sbt-tpolecat for 2.13
+      "-Yrangepos", // necessary for Scalafix (required by SemanticDB compiler plugin)
+      "-Ywarn-unused", // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13)
       "-P:silencer:checkUnused"
     ),
-    Test / publishArtifact := false,
-    Test / test / wartremoverErrors := (Compile / compile / wartremoverErrors).value filterNot Set(
-      Wart.MutableDataStructures,
-      Wart.OptionPartial,
-      Wart.AsInstanceOf,
-      Wart.EitherProjectionPartial
-    )
+    Test / publishArtifact := false
   )
 
 }
