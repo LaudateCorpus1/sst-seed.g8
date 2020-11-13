@@ -10,7 +10,6 @@ import scala.concurrent.ExecutionContext
 import zio._
 import zio.interop.catz._
 
-import org.scalatest._
 import org.scalatest.funsuite.AsyncFunSuite
 import com.dimafeng.testcontainers._
 
@@ -20,7 +19,7 @@ class RandomServiceTest extends AsyncFunSuite with ForAllTestContainer {
   override val container = PostgreSQLContainer()
 
   test("RandomService should return") {
-    val runtime = new DefaultRuntime {}
+    val runtime = Runtime.default
 
     val test: Resource[Task, RandomService] = for {
       configuration <- Resource.liftF(PureConfigModule.makeOrRaise[Task, Configuration])
