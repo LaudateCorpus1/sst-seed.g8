@@ -24,13 +24,15 @@ class RandomServiceTest extends AsyncFunSuite with ForAllTestContainer {
     val test: Resource[Task, RandomService] = for {
       configuration <- Resource.liftF(PureConfigModule.makeOrRaise[Task, Configuration])
       executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.platform.executor.asEC)
-      boundedConnectExecutionContext <- executorModule
-                                         .makeThreadPoolExecutor(configuration.boundedConnectExecutor,
-                                                                 new ConfigurableThreadFactory(Config(Some("hikari-connect-%02d"))))
-                                         .map(ExecutionContext.fromExecutorService)
-      doobieTransactor <- DoobieHikariModule.make[Task](overrideDbConfiguration(configuration.database),
-                                                        boundedConnectExecutionContext,
-                                                        executorModule.blocker)
+      boundedConnectExecutionContext <-
+        executorModule
+          .makeThreadPoolExecutor(configuration.boundedConnectExecutor, new ConfigurableThreadFactory(Config(Some("hikari-connect-%02d"))))
+          .map(ExecutionContext.fromExecutorService)
+      doobieTransactor <- DoobieHikariModule.make[Task](
+        overrideDbConfiguration(configuration.database),
+        boundedConnectExecutionContext,
+        executorModule.blocker
+      )
       executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.platform.executor.asEC)
       randomService = RandomService(doobieTransactor)
     } yield randomService
