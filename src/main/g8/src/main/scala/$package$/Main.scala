@@ -39,7 +39,7 @@ object Main extends ZioServerApp {
       currentTime <- Resource.liftF(clock.realTime(TimeUnit.MILLISECONDS))
       console <- Resource.pure[Task, Console[Task]](ConsoleModule.make[Task])
       _ <- Resource.liftF(
-        console.printLine(s"The current Unix epoch time is $currentTime. This system has ${executorModule.numOfCpus} CPUs.")
+        console.printLine(s"The current Unix epoch time is \$currentTime. This system has \${executorModule.numOfCpus} CPUs.")
       )
       meterRegistry <- MicrometerJmxModule.make[Task](configuration.jmx)
       _ <- Resource.liftF(MicrometerJvmModule.make[Task](meterRegistry))
